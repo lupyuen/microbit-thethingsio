@@ -44,7 +44,7 @@ function main(params, callback) {
     //  Convert the 4 digits into a number ("10" means decimal).
     let value = parseInt(valueText, 10);
     if (sensor !== "mid") {  //  If this is not the message ID...
-    	value = scaledValue / 10.0;  //  Divide the value by 10.
+    	value = value / 10.0;  //  Divide the value by 10.
     }
     
     //  Add the value to the decoded sensor values.
@@ -52,6 +52,8 @@ function main(params, callback) {
     sensorValues.push({ key: sensor, value: value });
     data = data.substr(4);  //  Continue decoding the next 4 digits.
   });
+  
+  //  We have finished decoding the sensor values "mid", "tmp", "lig", "acl".
   //  Return the decoded sensor values to thethings.io. Looks like:
   //  { key: 'mid', value: 38 }, { key: 'tmp', value: 28.0 }, ...
   callback(null, sensorValues);
